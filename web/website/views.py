@@ -1,7 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-views = Blueprint('views', __name__)
+# Create a blueprint and give the blueprint a name
+views = Blueprint('views', __name__) # Way to seperate app out (layout of URLs)
 
 @views.route('/') # Main page
 def home():
-    return "<h1>Test</h1>"
+    return render_template('base.html')
