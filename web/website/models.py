@@ -62,13 +62,13 @@ def derive(values:dict):
 
 # Seperate the database handling for differnet views? or just one organization (already exists)
 
-
 # Create a new database handler that also handler authentication (using session details for multi user in the future)
 # database handler should now only contain the DBMS functions (CRUD + Organiation view dashboard)
 # Esentially creat a new organization view focused database handler (dervied from old organization class)
 
+# (Class for each table, model wrapper for strong entities, handle weak as is)
 # Organization Class
-# Address Book
+# Address Book Class
 # 
 
 
