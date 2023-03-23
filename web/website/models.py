@@ -1,6 +1,5 @@
-from flask import requests
 import mysql.connector # Using MySQL Connector rather than SQLAlchemy
-import private
+from . import private
 
 # From the previous assignments code (author: harrisiva)
 
@@ -55,11 +54,25 @@ class database:
         self.database.close()
         return
     
-
 def derive(values:dict): 
     return '=%s,'.join(values.keys())+'=%s', list(values.values())
 
-# Employee object (Could be the parent for different employee types?)
+#TODO: Customize the orgniazation class to suit nesthr's databasew
+#TODO: Remove the printing statements to simplify the code (inputs will be given as dictionaries, or whatever is the best for form handling)
+
+# Seperate the database handling for differnet views? or just one organization (already exists)
+
+
+# Create a new database handler that also handler authentication (using session details for multi user in the future)
+# database handler should now only contain the DBMS functions (CRUD + Organiation view dashboard)
+# Esentially creat a new organization view focused database handler (dervied from old organization class)
+
+# Organization Class
+# Address Book
+# 
+
+
+"""
 class organization: # Could be the parent object for differnet organization types etc.
     def __init__(self, db_handler:database, name, values=[]):   
         self.db_handler:database = db_handler
@@ -372,4 +385,4 @@ class organization: # Could be the parent object for differnet organization type
 
     # Misc. (on the organization landing page)
     def __str__(self):
-        return f'\tName: {self.name}\n\tAddress: {self.address}\n\tDesc: {self.description}\n\tBalance: {self.balance}\n\tPayroll: {self.payroll_due}'
+        return f'\tName: {self.name}\n\tAddress: {self.address}\n\tDesc: {self.description}\n\tBalance: {self.balance}\n\tPayroll: {self.payroll_due}'"""

@@ -10,6 +10,9 @@
     <body>
         {% block body %}
         <h1>Home</h1>
+        {% for table in data %}
+        <li>{{ table }}</li>
+        {% endfor %}
         {% endblock %}
 
         <!-- (Bootstrap) Optional JavaScript -->
