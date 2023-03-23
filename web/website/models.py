@@ -53,22 +53,6 @@ class database:
         self.cursor.close()
         self.database.close()
         return
-    
-def derive(values:dict): 
-    return '=%s,'.join(values.keys())+'=%s', list(values.values())
-
-#TODO: Customize the orgniazation class to suit nesthr's databasew
-#TODO: Remove the printing statements to simplify the code (inputs will be given as dictionaries, or whatever is the best for form handling)
-
-# Seperate the database handling for differnet views? or just one organization (already exists)
-
-# Create a new database handler that also handler authentication (using session details for multi user in the future)
-# database handler should now only contain the DBMS functions (CRUD + Organiation view dashboard)
-# Esentially creat a new organization view focused database handler (dervied from old organization class)
-
-# (Class for each table, model wrapper for strong entities, handle weak as is)
-# Organization Class
-# Address Book Class
 
 class Organization():
     def __init__(self): # Uses DB to load organization object's information
@@ -78,7 +62,7 @@ class Organization():
         return
     
     # Organization CRUD
-    def view_organizations(self):
+    def read_organizations(self):
         # view current organization's data (incl. self and more)
         return
     def create_organization(self):
@@ -91,15 +75,31 @@ class Organization():
         # Deletes the current organization object (ensures cascade condition is met)
         return
     
-    # Employee CRUD (filters using the current organization)
-    def view_employees(self):
+    # Transaction CRUD
+    def create_transaction(self):
         return
-    def view_departments(self):
+    def read_transactions(self):
         return
-    def view_projects(self):
+    def update_transaction(self):
+        return
+    def delete_transaction(self):
+        return
+
+    # Employee CRUD (incl. ) (filters using the current organization)
+    def create_employee(self):
+        return
+    def read_employees(self):
+        return 
+    def update_employee(self): # Update multi games
+        return
+    def delete_employee(self):
         return
     
     # Department CRUD
+    # Project CRUD
 
     # Employee Performance Management
+    # Enter performance appraisal
+
     # Employee Payroll Managementent
+    # Make payment (all=False, id=None)
