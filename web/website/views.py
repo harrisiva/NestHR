@@ -24,10 +24,7 @@ def organization(): # Restricted to any particular organization based on the ses
     # Show data from special queries
     # Show buttons to go to crud features
     # Show organizations basic details (access level based) (SELECT where ORG name matches)
-    # Has redirect to page with CRUD features
-    
-    # Initiate database handler
-    
+    # Has redirect to page with CRUD features    
     return 
 
 @views.route("/employee-dashboard")
