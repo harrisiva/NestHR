@@ -8,13 +8,13 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        {% block body %}
-        <h1>Home</h1>
-        {% for table in data %}
-        <li>{{ table }}</li>
-        {% endfor %}
-        {% endblock %}
+        <!-- Navbar -->
+        <a href="organization-dashboard">Dashboard</a> 
 
+        <!-- Body -->
+        {% block body %}
+        {% endblock %}
+        
         <!-- (Bootstrap) Optional JavaScript -->
         <!-- (Bootstrap) jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

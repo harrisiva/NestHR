@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+<!-- # Show data from special queries
+     # Show buttons to go to crud features
+     # Show organizations basic details (access level based) (SELECT where ORG name matches)
+     # Has redirect to page with CRUD features -->
+
+{% block title %}Organization{% endblock %}
+
+{% block body %}
+
+<!-- Contains the organization details and the special query results -->
+<h1>Nme: {{ profile.name }}</h1>
+<h2>Desc: {{ profile.desc }}</h2>
+<h3>Address: {{ profile.address }}</h3>
+<a href="manage-employees">Manage Employees</a> <!-- Points to page with employee management CRUD functions -->
+
+{% endblock %}
