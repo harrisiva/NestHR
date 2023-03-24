@@ -136,10 +136,8 @@ class Organization(): # Used predominantly by the organization related views
     # Employee CRUD (incl. ) (filters using the current organization)
     def create_employee(self):
         return
-    
     def read_employees(self): # uses org_id and db handler to view all the employees in the current organization  
         return self.database.fetch(f'SELECT * FROM employee WHERE org_id={self.id};', output=True) 
-    
     def update_employee(self): # Update multi games
         return
     def delete_employee(self):

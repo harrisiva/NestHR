@@ -1,0 +1,26 @@
+{% extends "manage-base.html" %}
+
+{% block title %}Manage Employees{% endblock %}
+{% block body %}
+<h1>Manage Employees</h1>
+<h2>Create, Update, Delete Employees:</h2>
+<p>Form for all</p>
+<p>Seperate button for each</p>
+<h2>View Employees:</h2>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Department ID</td>
+    </tr>
+    {% for employee in employees %}
+    <tr>
+        <td>{{ employee.3 }}</td>
+        <td>{{ employee.6 }}</td>
+        <td>{{ employee.7 }}</td>
+        <td>{{ employee.4 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

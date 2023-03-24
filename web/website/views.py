@@ -23,19 +23,21 @@ def home():
 
 @views.route('/organization-dashboard')
 def organization(): # Restricted to any particular organization based on the session ID?
-    # Dashboard for the organization, esentially the organization landing page/view
-    # Import basic organization data and special query data, can be passed inline (but might be bad practice)
-    return render_template("organization.html", profile=ORGANIZATION.read_organization())
+    special = None # TODO: Import special SQL query command responses
+    # TODO: CUD from CRUD
+    # TODO: Page and form for RUDing organization data from the data
+    # Pass to a page with a form to CRUD the org info in the database  # Leave blank to skip (for now, can change to select col to change later)
+    return render_template("organization/organization.html", profile=ORGANIZATION.read_organization())
 
-@views.route("/manage-employees")
-def manage_employees():
-    return render_template("manage-employees.html", employees=ORGANIZATION.read_employees())
+@views.route("/manage-employees") # TODO: Form for managing employee
+def manage_employees(): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
+    # Have other functions within the page to create, update, or delete based on the entires seen above
+    return render_template("organization/manage-employees.html", employees=ORGANIZATION.read_employees())
 
+# TODO: Second phase of the project. Consists of the view 
 @views.route("/employee-dashboard")
 def employee():
     # Dashboard for the employee, esentially the employee langing page/view
-    # Show data about employee
-    # Show data about the payroll
-    # Show data about performance (restricted for the current employee only)
-    # Has redirect to page with CRUD features
+    # Show data about employee, Show data about the payroll, Show data about performance (restricted for the current employee only)
+    # Has redirect to page with limited/restricted CRUD features
     return
