@@ -108,7 +108,7 @@ class Organization(): # Used predominantly by the organization related views
         return
     
     # Organization CRUD
-    def read_organizations(self): # TODO: Can also incldue sum of employees, tranasactional balance, and other summary type info
+    def read_organization(self): # TODO: Can also incldue sum of employees, tranasactional balance, and other summary type info
         return {"reg":self.reg,"name":self.name,"balance":self.balance,"address":self.address,"desc":self.desc}
     
     def create_organization(self):

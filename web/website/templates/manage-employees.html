@@ -3,4 +3,12 @@
 {% block title %}Manage Employees{% endblock %}
 {% block body %}
 <h1>Manage Employees</h1>
+<table>
+{% for employee in employees %}
+<tr>
+    <td>{{ employee.6 }}</td>
+    <td>{{ employee.7 }}</td>
+</tr>
+{% endfor %}
+</table>
 {% endblock %}
