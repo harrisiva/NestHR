@@ -1,11 +1,63 @@
 {% extends "manage-base.html" %}
-
+<!-- Add a CSRF token -->
 {% block title %}Manage Employees{% endblock %}
 {% block body %}
 <h1>Manage Employees</h1>
-<h2>Create, Update, Delete Employees:</h2>
-<p>Form for all</p>
-<p>Seperate button for each</p>
+<br>
+
+<h2>Alter Employees (i.e., CUD from CRUD):</h2>
+<!-- 
+    One form for all. Speerate button for each.
+    Form should take in the required data for creating, updating, deleting, users. 
+    Ignore inputs that are not required to process a query but accept them anyway.
+    Alternatively, you can style to hide them but we can ignore that for now.
+    For now, we just need to collect all the fields except for the automatically generated ones.
+-->
+<p>You can ignore the fileds that you do not require (e.x. providing just the user_id for delete, ignoring the user_id for create and update)</p>
+<form action="" METHOD="POST">
+    <!-- TODO: Modify the input types and the different variable names to match the database (note: not sure if this is a security risk since this portion of the code is locally present on users browsers unencrypted) -->
+    
+    <!-- Input field's for the employee table -->
+    <h3>General Information</h3>
+    <input type="text" placeholder="(Optional) User ID" name="user_id">
+    <input type="text" placeholder="Department ID" name="department_id"><br>
+    <input type="text" placeholder="Firstname" name="firstname">
+    <input type="text" placeholder="Lastname" name="lastname"><br>
+
+    <h3>Account Information</h3>
+    <input type="text" placeholder="Username" name="username">
+    <input type="text" placeholder="Email" name="email">
+    <input type="text" placeholder="Password" name="Password"><br>
+
+
+    <!-- (Input field's for the nullable tables - should they be kept seperate?) -->
+
+    <!-- Input field's for the address table -->
+    <h3>Address Information</h3>
+    <input type="text" placeholder="Street Number" name="street_num">
+    <input type="text" placeholder="(Optional) Unit Number" name="unit_num"><br>
+    <input type="text" placeholder="Street Name" name="street_name">
+    <input type="text" placeholder="City" name="city"><br>
+    <input type="text" placeholder="Province" name="province">
+    <input type="text" placeholder="Postal Code" name="postal_code">
+    <input type="text" placeholder="Country (e.x. CA)" name="country"><br>
+
+    <!-- Input field's for the bank table -->
+    <h3>Bank Information</h3>
+    <input type="text" placeholder="Institue Number" name="institue_num"><br>
+    <input type="text" placeholder="Transit Number" name="transit_num">
+    <input type="text" placeholder="Account Number" name="account_num"><br>
+
+    <!-- Input field's for the payroll table -->
+    <input type="text" placeholder="City" name="city"><br>
+    <input type="text" placeholder="City" name="city"><br>
+
+    <input type="submit" value="Create">
+    <input type="submit" value="Update">
+    <input type="submit" value="Delete">
+</form>
+<br>
+
 <h2>View Employees:</h2>
 <table>
     <tr>
@@ -23,4 +75,6 @@
     </tr>
     {% endfor %}
 </table>
+<a>To view more information, such as the employees address or bank information, please fill the following form:</a>
+<!-- Have a page with a form/page requesting the employee id and privacy awareness (page awalys refreshes clean i.e., when GET'ed) -->
 {% endblock %}

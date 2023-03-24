@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from .models import Organization
-
+#TODO: Build forms (employee management)
+#TODO: Add CSRF token to forms
 # Create a blueprint and give the blueprint a name
 views = Blueprint('views', __name__) # Way to seperate app out (layout of URLs)
 ORGANIZATION = Organization(1) # Means it only works for one session at a time currently (so one DB admin DBMS view accesses per connection)
@@ -21,7 +22,7 @@ def home():
         # special queries data
     return render_template('home.html')
 
-@views.route('/organization-dashboard')
+@views.route('/organization-dashboard', methods=["GET","POST"])
 def organization(): # Restricted to any particular organization based on the session ID?
     special = None # TODO: Import special SQL query command responses
     # TODO: CUD from CRUD
@@ -29,7 +30,7 @@ def organization(): # Restricted to any particular organization based on the ses
     # Pass to a page with a form to CRUD the org info in the database  # Leave blank to skip (for now, can change to select col to change later)
     return render_template("organization/organization.html", profile=ORGANIZATION.read_organization())
 
-@views.route("/manage-employees") # TODO: Form for managing employee
+@views.route("/manage-employees", methods=["GET","POST"]) # TODO: Form for managing employee
 def manage_employees(): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
     # Have other functions within the page to create, update, or delete based on the entires seen above
     return render_template("organization/manage-employees.html", employees=ORGANIZATION.read_employees())
