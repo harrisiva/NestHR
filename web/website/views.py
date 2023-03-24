@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from .models import Organization
 #TODO: Build forms (employee management)
 #TODO: Add CSRF token to forms
@@ -31,8 +31,11 @@ def organization(): # Restricted to any particular organization based on the ses
     return render_template("organization/organization.html", profile=ORGANIZATION.read_organization())
 
 @views.route("/manage-employees", methods=["GET","POST"]) # TODO: Form for managing employee
-def manage_employees(): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
+def manage_employees(request): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
     # Have other functions within the page to create, update, or delete based on the entires seen above
+    if request.post:
+        print()
+        
     return render_template("organization/manage-employees.html", employees=ORGANIZATION.read_employees())
 
 # TODO: Second phase of the project. Consists of the view 
