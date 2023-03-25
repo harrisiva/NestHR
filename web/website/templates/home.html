@@ -1,13 +1,80 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}NestHR{% endblock %} {% block body %}
 
-{% block title %}NestHR{% endblock %}
+<div>
+	<div style="position: relative">
+		<div
+			style="
+				height: 85vh;
+				width: 100%;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-image: url('static/images/header.jpg');
+				z-index: 0;
+			"
+		>
+			<div
+				style="
+					color: white;
+					display: flex;
+					justify-content: flex-start;
+					line-height: 1.2;
+					padding-top: 25vh;
+					padding-left: 10%;
+					padding-right: 10%;
+					flex-direction: column;
+					flex-wrap: wrap; /* added */
+					text-align: left; /* added */
+					width: 60vw; /* added */
+				"
+			>
+				<h1 style="font-size: 4rem">
+					Welcome to NestHR, the best HR software for small businesses.
+				</h1>
+			</div>
+		</div>
+	</div>
 
-{% block body %}
-<h1>NestHR</h1>
-<p>Currently logged in as ____</p>
-<p>Logout|Create new Org|Etc</p>
-<h2>Features</h2>
-<p>A bunch of basic information about the key features we offer.</p>
-<h2>About</h2>
-<p>Brief information about the development journey of this project and web app (dont complain about writing this pls).</p>
-{% endblock %}
+	<div style="display: flex; flex-direction: row; padding: 5vw">
+		<img
+			src="{{ url_for('static', filename='images/coilab.jpg') }}"
+			alt="NestHR"
+		/>
+
+		<div style="padding-left: 5%">
+			<h2>What is NestHR?</h2>
+			<p>
+				NestHR is a web application that helps small businesses manage their
+				employees. It is a simple and easy to use application that allows you to
+				manage your employees, their information, and their time. Contrary to
+				popular belief, Lorem Ipsum is not simply random text. It has roots in a
+				piece of classical Latin literature from 45 BC, making it over 2000
+				years old. Richard McClintock, a Latin professor at Hampden-Sydney
+				College in Virginia, looked up one of the more obscure Latin words,
+				consectetur, from a Lorem Ipsum passage, and going thr ough the cites of
+				the word in classical literature, discovered the undoubtable source.
+				Lore m Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+				Bonorum et Malorum" (Th e Extremes of Good and Evil) by Cicero, written
+				in 45 BC. This book is a treatise on the the ory of ethics, very popular
+				during the Renaissance. The first line of Lorem Ipsum, "Lorem i psum
+				dolor sit amet..", comes from a line in section 1.10.32.
+				from a Lorem Ipsum passage, and going thr ough the cites of
+				the word in classical literature, discovered the undoubtable source.
+				Lore m Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+				Bonorum et Malorum" (Th e Extremes of Good and Evil) by Cicero, written
+				in 45 BC. This book is a treatise on the the ory of ethics, very popular
+				during the Renaissance. The first line of Lorem Ipsum, "Lorem i psum
+				dolor sit amet..", comes from a line in section 1.10.32.
+				from a Lorem Ipsum passage, and going thr ough the cites of
+				the word in classical literature, discovered the undoubtable source.
+				Lore m Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
+				Bonorum et Malorum" (Th e Extremes of Good and Evil) by Cicero, written
+				in 45 BC. This book is a treatise on the the ory of ethics, very popular
+				during the Renaissance. The first line of Lorem Ipsum, "Lorem i psum
+				dolor sit amet..", comes from a line in section 1.10.32.
+			</p>
+		</div>
+	</div>
+
+	{% endblock %}
+</div>
