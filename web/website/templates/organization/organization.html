@@ -7,41 +7,9 @@
 %} {% block body %}
 
 <!-- Contains the organization details and the special query results -->
-
-<div style="position: absolute; left: 20vw; top: 10vh">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Name</th>
-				<th scope="col">Desc</th>
-				<th scope="col">Address</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td colspan="2">Larry the Bird</td>
-				<td>@twitter</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<!-- <h1>Name: {{ profile.name }}</h1>
-	<h2>Desc: {{ profile.desc }}</h2>
-	<h3>Address: {{ profile.address }}</h3>
-	<h4>Phone: {{ profile.username }}</h4> -->
+<h1>Name: {{ profile.name }}</h1>
+<h2>Desc: {{ profile.desc }}</h2>
+<h3>Address: {{ profile.address }}</h3>
+<h4>Phone: {{ profile.username }}</h4>
 
 {% endblock %}

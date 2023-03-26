@@ -33,7 +33,6 @@ def organization(): # Restricted to any particular organization based on the ses
 @views.route("/manage-employees", methods=["GET","POST"]) # TODO: Form for managing employee
 def manage_employees(): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
     # Have other functions within the page to create, update, or delete based on the entires seen above
-        
     return render_template("organization/manage-employees.html", employees=ORGANIZATION.read_employees())
 
 # TODO: Second phase of the project. Consists of the view 

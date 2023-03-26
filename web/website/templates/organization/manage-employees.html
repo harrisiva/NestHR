@@ -1,5 +1,6 @@
 {% extends "manage-base.html" %}
 <!-- Add a CSRF token -->
+{% include 'partials/sidebar.html' %}
 {% block title %}Manage Employees{% endblock %}
 {% block body %}
 <h1>Manage Employees</h1>
@@ -59,19 +60,25 @@
 <br>
 
 <h2>View Employees:</h2>
-<table>
-    <tr>
-        <td>ID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Department ID</td>
-    </tr>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Department ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
     {% for employee in employees %}
     <tr>
-        <td>{{ employee.3 }}</td>
+        <th scope="row">{{ employee.3 }}</th>
+        <td>{{ employee.4 }}</td>
         <td>{{ employee.6 }}</td>
         <td>{{ employee.7 }}</td>
-        <td>{{ employee.4 }}</td>
+        <td>{{ employee.8 }}</td>
+        <td>{{ employee.9 }}</td>
     </tr>
     {% endfor %}
 </table>

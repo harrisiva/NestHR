@@ -16,8 +16,16 @@
 		<!-- Navbar -->
 		{% include 'partials/navbar.html' %}
 
+
+		{% block homebody %}
+		{% endblock %}
+
 		<!-- Body -->
-		{% block body %} {% endblock %}
+		<div style="position: absolute; left: 20vw; top: 10vh">
+		{% block body %}
+		{% endblock %}
+		</div>
+		
 
 		<!-- (Bootstrap) Optional JavaScript -->
 		<!-- (Bootstrap) jQuery first, then Popper.js, then Bootstrap JS -->
