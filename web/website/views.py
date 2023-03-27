@@ -88,6 +88,22 @@ def manage_addressbook():
 
 @views.route("/manage-departments", methods=["GET","POST"])
 def manage_departments():
+
+    # Handle addressbook functions from organization manager prespective
+    if request.method=="POST":
+
+        # Convert response type, check if response passes basic error handling
+        response = dict(request.form)
+        if response["submit"] in ["Update", "Delete"] and response["dep_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
+        if response["submit"] in ["Create"] and response["dep_id"]!="": return render_template("home.html") # pop up or same as previous line
+        response["org_id"] = ORGANIZATION.id
+
+        # Call the required organization function to handle the record
+        if response["submit"]=="Create": ORGANIZATION.create_department(deepcopy(response))
+        if response["submit"]=="Update": ORGANIZATION.update_department(deepcopy(response)) 
+        if response["submit"]=="Delete": ORGANIZATION.remove_department(deepcopy(response))
+
+
     return render_template("organization/manage-departments.html", departments=ORGANIZATION.view_departments())
 
 

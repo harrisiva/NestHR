@@ -173,3 +173,22 @@ class Organization():
 
     def view_departments(self):
         return self.database.fetch(f'SELECT * FROM department WHERE org_id={self.id};', output=True) 
+
+    def create_department(self,response):
+        self.database.insert(queries.insert_into_department_5, 
+                             [response["org_id"],response["dep_name"],
+                              response["dep_desc"],response["dep_budget"]
+                              ,response["manager_id"]])
+        return
+    
+    def update_department(self,response):
+        response = clean(response)
+        sql_section,values = derive(response)
+        sql = f'UPDATE department SET {sql_section} WHERE dep_id={response["dep_id"]}'
+        self.database.insert(sql, values)
+        return
+    
+    def remove_department(self, response):
+        sql = f'DELETE FROM department WHERE dep_id={response["dep_id"]}'
+        self.database.delete(sql)
+        return
