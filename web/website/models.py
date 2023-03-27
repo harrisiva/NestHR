@@ -192,3 +192,25 @@ class Organization():
         sql = f'DELETE FROM department WHERE dep_id={response["dep_id"]}'
         self.database.delete(sql)
         return
+    
+    
+    def view_payroll(self):
+        return self.database.fetch(f'SELECT * FROM payroll WHERE org_id={self.id};', output=True) 
+    
+    def create_payroll(self, response):
+        self.database.insert(queries.insert_into_payroll_3, 
+                             [response["org_id"],response["wage"],
+                              response["cycle"]])
+        return
+    
+    def update_payroll(self, response):
+        response = clean(response)
+        sql_section,values = derive(response)
+        sql = f'UPDATE payroll SET {sql_section} WHERE pay_id={response["pay_id"]}'
+        self.database.insert(sql, values)
+        return
+    
+    def remove_payroll(self, response):
+        sql = f'DELETE FROM payroll WHERE pay_id={response["pay_id"]}'
+        self.database.delete(sql)
+        return

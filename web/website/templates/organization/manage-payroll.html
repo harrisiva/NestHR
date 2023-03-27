@@ -1,0 +1,47 @@
+<!-- Add a CSRF token -->
+{% extends "manage-base.html" %}
+{% include 'partials/sidebar.html' %}
+{% block title %}Manage Payroll{% endblock %}
+{% block body %}
+<h1>Manage Payroll</h1>
+<br>
+
+<h2>Alter Payroll (i.e., CUD from CRUD):</h2><br>
+<p>You can ignore the fileds that you do not require</p>
+<form action="/manage-payroll" METHOD="POST">
+
+    <!-- Input field's for the employee table -->
+    <h3>Payroll Information</h3>
+    <input type="text" placeholder="(Optional) Payroll ID" name="pay_id">
+    <input type="text" placeholder="Wage" name="wage"><br>
+    <input type="text" placeholder="Cycle" name="cycle">
+    <br><br>
+
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
+</form>
+<br>
+
+<h2>View Payroll:</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Wage</th>
+            <th scope="col">Cycle</th>
+            <th scope="col">Prev Pay</th>
+            <th scope="col">Next Pay</th>
+        </tr>
+    </thead>
+    {% for pay in payroll %}
+    <tr>
+        <th scope="row">{{ pay.3 }}</th>
+        <td>{{ pay.4 }}</td>
+        <td>{{ pay.5 }}</td>
+        <td>{{ pay.6 }}</td>
+        <td>{{ pay.7 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
