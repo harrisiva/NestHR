@@ -1,51 +1,34 @@
-{% extends "manage-base.html" %}
 <!-- Add a CSRF token -->
+{% extends "manage-base.html" %}
 {% include 'partials/sidebar.html' %}
 {% block title %}Manage Employees{% endblock %}
 {% block body %}
 <h1>Manage Employees</h1>
 <br>
 
-<h2>Alter Employees (i.e., CUD from CRUD):</h2>
-<!-- 
-    One form for all. Speerate button for each.
-    Form should take in the required data for creating, updating, deleting, users. 
-    Ignore inputs that are not required to process a query but accept them anyway.
-    Alternatively, you can style to hide them but we can ignore that for now.
-    For now, we just need to collect all the fields except for the automatically generated ones.
--->
-<p>You can ignore the fileds that you do not require (e.x. providing just the user_id for delete, ignoring the user_id for create and update)</p>
+<h2>Alter Employees (i.e., CUD from CRUD):</h2><br>
+<p>You can ignore the fileds that you do not require</p>
 <form action="/manage-employees" METHOD="POST">
-    <!-- TODO: Modify the input types and the different variable names to match the database (note: not sure if this is a security risk since this portion of the code is locally present on users browsers unencrypted) -->
-    
+
     <!-- Input field's for the employee table -->
-    <h3>General Information</h3>
+    <h3>Employee Information</h3>
     <input type="text" placeholder="(Optional) User ID" name="user_id">
-    <input type="text" placeholder="Department ID" name="department_id"><br>
+    <input type="text" placeholder="Department ID" name="dep_id"><br>
     <input type="text" placeholder="Firstname" name="firstname">
-    <input type="text" placeholder="Lastname" name="lastname"><br>
+    <input type="text" placeholder="Lastname" name="lastname"><br><br>
 
     <h3>Account Information</h3>
     <input type="text" placeholder="Username" name="username">
+    <input type="text" placeholder="Password" name="pass">
+    <input type="text" placeholder="Access" name="access"><br><br>
+
+    <h3>Personal Information</h3>
     <input type="text" placeholder="Email" name="email">
-    <input type="text" placeholder="Password" name="Password"><br>
+    <input type="text" placeholder="Phone" name="phone"><br>
+    <input type="text" placeholder="Address ID" name="ad_id">
+    <input type="text" placeholder="Bank ID" name="bank_id">
+    <input type="text" placeholder="Pay ID" name="pay_id"><br><br>
 
-
-    <!-- (Input field's for the nullable tables - should they be kept seperate?) -->
-
-    <!-- Input field's for the address table -->
-    <h3>Address Information</h3>
-    <input type="text" placeholder="Street Number" name="street_num">
-    <input type="text" placeholder="(Optional) Unit Number" name="unit_num"><br>
-    <input type="text" placeholder="Street Name" name="street_name">
-    <input type="text" placeholder="City" name="city"><br>
-    <input type="text" placeholder="Province" name="province">
-    <input type="text" placeholder="Postal Code" name="postal_code">
-    <input type="text" placeholder="Country (e.x. CA)" name="country"><br>
-    
-    <!-- Input field's for the payroll table -->
-    <input type="text" placeholder="City" name="city"><br>
-    <input type="text" placeholder="Country" name="country"><br>
 
     <input type="submit" name="submit" value="Create">
     <input type="submit" name="submit" value="Update">

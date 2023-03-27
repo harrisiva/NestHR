@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request
 from .models import Organization
-#TODO: Build forms (employee management)
+from copy import deepcopy # (FOR PROTOYPE USE ONLY, ISSUE NEEDS TO BE RESOLVED)
 #TODO: Add CSRF token to forms
-# Create a blueprint and give the blueprint a name
-views = Blueprint('views', __name__) # Way to seperate app out (layout of URLs)
+
+views = Blueprint('views', __name__)
 ORGANIZATION = Organization(1) # Means it only works for one session at a time currently (so one DB admin DBMS view accesses per connection)
 
 @views.route('/') # Main page (landing page to create a )
@@ -30,37 +30,24 @@ def organization(): # Restricted to any particular organization based on the ses
     # Pass to a page with a form to CRUD the org info in the database  # Leave blank to skip (for now, can change to select col to change later)
     return render_template("organization/organization.html", profile=ORGANIZATION.read_organization())
 
-@views.route("/manage-employees", methods=["GET","POST"]) # TODO: Form for managing employee
-def manage_employees(): # TODO: Handle CRUD and web (e.x., POST) related requests (i.e., forms)
-    # Have other functions within the page to create, update, or delete based on the entires seen above
+@views.route("/manage-employees", methods=["GET","POST"]) 
+def manage_employees(): 
+    # Handle employee functions from a db manager prespective
     if request.method=="POST":
+
+        # Convert response type, check if response passes basic error handling, add org_id to response
         response = dict(request.form)
         if response["submit"] in ["Update", "Delete"] and response["user_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
         if response["submit"] in ["Create"] and response["user_id"]!="": return render_template("home.html") # pop up or same as previous line
-        # if nothing failed, meaning the form basic error checks (email format yet to be checked)
-        # proceed to process the different requests and input information into the database
-        response["org_id"] = ORGANIZATION.id
-        # Handling creates
-        if response["submit"]=="Create":
-            # Check if the required inputs are given (NOT NULL FIELDS)
-            # Create the non-dependent table's entires
-            # Create the employee table entry
-            # Refresh this page with the new information (or use a urlredirect to refresh the page)
-            print(response)
-            
-            ORGANIZATION.create_employee(response)
-            """
-            {'user_id': '', 'department_id': '1', 'firstname': 'Harri', 
-            'lastname': 'Siva', 'username': 'hsiva', 
-            'email': 'harrisiva@gmail.com', 'Password': '11@f12', 
-            'street_num': '33', 'unit_num': '', 'street_name': 'Street', 
-            'city': 'Waterloo', 'province': 'Ontario', 'postal_code': '1N3Z', 
-            'country': 'CA', 'institue_num': '12', 'transit_num': '12', 
-            'account_num': '323', 'submit': 'Create'}
-            """
-            pass
+        response["org_id"]=ORGANIZATION.id
 
-    return render_template("organization/manage-employees.html", employees=ORGANIZATION.read_employees())
+        # Call the required organization function to handle the record
+        if response["submit"]=="Create": ORGANIZATION.create_employee(response)
+        if response["submit"]=="Update": ORGANIZATION.update_employee(response) 
+        if response["submit"]=="Delete": ORGANIZATION.view_employees(response)
+
+
+    return render_template("organization/manage-employees.html", employees=ORGANIZATION.view_employees())
 
 @views.route("/manage-bank", methods=["GET","POST"])
 def manage_bank():
@@ -74,7 +61,7 @@ def manage_bank():
         if response["submit"] in ["Create"] and response["bank_id"]!="": return render_template("home.html") # pop up or same as previous line
         response["org_id"]=ORGANIZATION.id
 
-        # If its create, call the required organization function to enter the record into the DB
+        # Call the required organization function to handle the record
         if response["submit"]=="Create": ORGANIZATION.create_bank(response)
         if response["submit"]=="Update": ORGANIZATION.update_bank(response) 
         if response["submit"]=="Delete": ORGANIZATION.remove_bank(response)
@@ -83,6 +70,21 @@ def manage_bank():
 
 @views.route("/manage-addressbook", methods=["GET", "POST"])
 def manage_addressbook():
+    
+    # Handle addressbook functions from organization manager prespective
+    if request.method=="POST":
+
+        # Convert response type, check if response passes basic error handling
+        response = dict(request.form)
+        if response["submit"] in ["Update", "Delete"] and response["ad_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
+        if response["submit"] in ["Create"] and response["ad_id"]!="": return render_template("home.html") # pop up or same as previous line
+
+        # Call the required organization function to handle the record
+        if response["submit"]=="Create": ORGANIZATION.create_address(deepcopy(response))
+        if response["submit"]=="Update": ORGANIZATION.update_address(deepcopy(response)) 
+        if response["submit"]=="Delete": ORGANIZATION.remove_address(deepcopy(response))
+
+
     return render_template("organization/manage-addressbook.html", addressbook=ORGANIZATION.view_addressbook())
 
 # TODO: Second phase of the project. Consists of the view 

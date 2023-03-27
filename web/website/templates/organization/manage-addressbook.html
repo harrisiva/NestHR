@@ -6,10 +6,11 @@
 <h1>Manage Addressbook</h1>
 <br>
 
-<h2>Alter Addressbook (i.e., CUD from CRUD):</h2>
+<h2>Alter Addressbook (i.e., CUD from CRUD):</h2><br>
+<p>You can ignore the fileds that you do not require</p>
 <form action="/manage-addressbook" METHOD="POST">
     <h3>General Information</h3>
-    <input type="text" placeholder="(Optional) Addressbook ID" name="ad_id">
+    <input type="text" placeholder="(Optional) Addressbook ID" name="ad_id"><br><br>
 
     <!-- Input field's for the address table -->
     <h3>Address Information</h3>
@@ -19,7 +20,7 @@
     <input type="text" placeholder="City" name="city"><br>
     <input type="text" placeholder="Province" name="province">
     <input type="text" placeholder="Postal Code" name="postal_code">
-    <input type="text" placeholder="Country (e.x. CA)" name="country"><br>
+    <input type="text" placeholder="Country (e.x. CA)" name="country"><br><br>
     
     <input type="submit" name="submit" value="Create">
     <input type="submit" name="submit" value="Update">
