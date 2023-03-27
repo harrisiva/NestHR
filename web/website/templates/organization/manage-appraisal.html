@@ -1,0 +1,48 @@
+<!-- Add a CSRF token -->
+{% extends "manage-base.html" %}
+{% include 'partials/sidebar.html' %}
+{% block title %}Manage Appraisal{% endblock %}
+{% block body %}
+<h1>Manage Appraisal</h1>
+<br>
+
+<h2>Alter Appraisal (i.e., CUD from CRUD):</h2><br>
+<p>You can ignore the fileds that you do not require</p>
+<form action="/manage-appraisal" METHOD="POST">
+
+    <!-- Input field's for the employee table -->
+    <h3>Appraisal Information</h3>
+    <input type="text" placeholder="(Optional) Appraisal ID" name="appr_id">
+    <input type="text" placeholder="Project ID" name="prj_id"><br>
+    <input type="text" placeholder="Appraiser ID" name="appraiser_id">
+    <input type="text" placeholder="Appraised ID" name="appraised_id">
+    <input type="text" placeholder="Performance Ach." name="prj_perf_achieved"><br><br>
+
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
+</form>
+<br>
+
+<h2>View Appraisals:</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Project ID</th>
+            <th scope="col">ID</th>
+            <th scope="col">Appraiser ID</th>
+            <th scope="col">Appraiser ID</th>
+            <th scope="col">Performance Ach.</th>
+        </tr>
+    </thead>
+    {% for appraisal in appraisals %}
+    <tr>
+        <th scope="row">{{ appraisal.4 }}</th>
+        <td>{{ appraisal.5 }}</td>
+        <td>{{ appraisal.6 }}</td>
+        <td>{{ appraisal.7 }}</td>
+        <td>{{ appraisal.8 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -127,6 +127,26 @@ def manage_payroll():
     return render_template("organization/manage-payroll.html", payroll=ORGANIZATION.view_payroll())
 
 
+@views.route("/manage-appraisal", methods=["GET","POST"])
+def manage_appraisal():
+
+    # Handle addressbook functions from organization manager prespective
+    if request.method=="POST":
+
+        # Convert response type, check if response passes basic error handling
+        response = dict(request.form)
+        if response["submit"] in ["Update", "Delete"] and response["pay_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
+        if response["submit"] in ["Create"] and response["pay_id"]!="": return render_template("home.html") # pop up or same as previous line
+        response["org_id"] = ORGANIZATION.id
+
+        # Call the required organization function to handle the record
+        if response["submit"]=="Create": ORGANIZATION.create_appraisal(deepcopy(response))
+        if response["submit"]=="Update": ORGANIZATION.update_appraisal(deepcopy(response)) 
+        if response["submit"]=="Delete": ORGANIZATION.remove_appraisal(deepcopy(response))
+
+    return render_template("organization/manage-appraisal.html", appraisals=ORGANIZATION.view_appraisal())
+
+
 # TODO: Second phase of the project. Consists of the view 
 @views.route("/employee-dashboard")
 def employee():

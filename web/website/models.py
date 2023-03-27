@@ -193,7 +193,6 @@ class Organization():
         self.database.delete(sql)
         return
     
-    
     def view_payroll(self):
         return self.database.fetch(f'SELECT * FROM payroll WHERE org_id={self.id};', output=True) 
     
@@ -212,5 +211,26 @@ class Organization():
     
     def remove_payroll(self, response):
         sql = f'DELETE FROM payroll WHERE pay_id={response["pay_id"]}'
+        self.database.delete(sql)
+        return
+    
+    def view_appraisal(self):
+        return self.database.fetch(f'SELECT * FROM appraisal WHERE org_id={self.id};', output=True) 
+    
+    def create_appraisal(self, response):
+        self.database.insert(queries.insert_into_appraisal_5, 
+                             [response["date_achieved"],response["org_id"],
+                              response["prj_id"],response["appraiser_id"],response["appraised_id"],response["prj_perf_achieved"]])
+        return
+    
+    def update_appraisal(self, response):
+        response = clean(response)
+        sql_section,values = derive(response)
+        sql = f'UPDATE appraisal SET {sql_section} WHERE appr_id={response["appr_id"]}'
+        self.database.insert(sql, values)
+        return
+    
+    def remove_appraisal(self, response):
+        sql = f'DELETE FROM appraisal WHERE appr_id={response["appr_id"]}'
         self.database.delete(sql)
         return
