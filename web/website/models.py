@@ -170,3 +170,6 @@ class Organization():
         sql = f'UPDATE bank SET {sql_section} WHERE bank_id={response["bank_id"]}'
         self.database.insert(sql, values)
         return
+
+    def view_departments(self):
+        return self.database.fetch(f'SELECT * FROM department WHERE org_id={self.id};', output=True) 

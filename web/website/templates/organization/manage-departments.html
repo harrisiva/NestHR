@@ -1,7 +1,49 @@
-{% extends "organization/manage-base.html" %}
-
+<!-- Add a CSRF token -->
+{% extends "manage-base.html" %}
+{% include 'partials/sidebar.html' %}
 {% block title %}Manage Departments{% endblock %}
 {% block body %}
 <h1>Manage Departments</h1>
+<br>
 
+<h2>Alter Department (i.e., CUD from CRUD):</h2><br>
+
+<p>You can ignore the fileds that you do not require</p>
+<form action="/manage-departments" METHOD="POST">
+    <h3>General Information</h3>
+    <input type="text" placeholder="(Optional) Department ID" name="dep_id"><br>
+
+    <h3>Department Information</h3>
+    <input type="text" placeholder="Name" name="dep_name"><br>
+    <input type="text" placeholder="Desc." name="dep_desc">
+    <input type="text" placeholder="Budget" name="dep_budget">
+    <input type="text" placeholder="Manager ID" name="manager_id"><br><br>
+
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
+</form>
+<br>
+
+<h2>View Departments:</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Desc.</th>
+            <th scope="col">Budget</th>
+            <th scope="col">Manager ID</th>
+        </tr>
+    </thead>
+    {% for department in departments %}
+    <tr>
+        <th>{{ department.3 }}</th>
+        <td>{{ department.4 }}</td>
+        <td>{{ department.5 }}</td>
+        <td>{{ department.6 }}</td>
+        <td>{{ department.7 }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

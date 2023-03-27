@@ -86,9 +86,9 @@ def manage_addressbook():
 
     return render_template("organization/manage-addressbook.html", addressbook=ORGANIZATION.view_addressbook())
 
-@views.route("/manage-payroll", methods=["GETS","POST"])
-def manage_payroll():
-    return render_template("organization/manage-payroll.html", addressbook=ORGANIZATION.view_payroll())
+@views.route("/manage-departments", methods=["GET","POST"])
+def manage_departments():
+    return render_template("organization/manage-departments.html", departments=ORGANIZATION.view_departments())
 
 
 # TODO: Second phase of the project. Consists of the view 
