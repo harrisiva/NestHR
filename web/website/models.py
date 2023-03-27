@@ -101,9 +101,7 @@ class Organization(): # Used predominantly by the organization related views
     def __init__(self, id=None): # Uses DB to load organization object's information
         
         # Has a database handler instance on its own which is passed to the addressbook (can maintain session use)
-        self.database = database()
-        self.addressbook = AddressBook(self.database)
-       
+        self.database = database()       
         self.id = id
         # get the set other information from the database
         query = f'SELECT * FROM organizations WHERE org_id={self.id}'
@@ -117,7 +115,7 @@ class Organization(): # Used predominantly by the organization related views
             self.desc:str = str(values[7])
 
             # get and set the address as a dictionary
-            self.address:dict = self.addressbook.read_address(self.ad_id)
+            self.address:dict = self.get_address(self.ad_id)
         return
     
     # Organization CRUD
@@ -183,26 +181,37 @@ class Organization(): # Used predominantly by the organization related views
         INSERT INTO employee(org_id,dep_id,access,firstname,lastname,username,email,phone,pass,ad_id,bank_id,pay_id) 
         VALUES (1,1,1,'Vasily','Lomachenko','vloma','vloma@pubonking.com',226124356,'a1#xf',1,1,1);
         """
-        """
-        {'user_id': '', 'department_id': '1', 'firstname': 'Harri', 
-        'lastname': 'Siva', 'username': 'hsiva', 
-        'email': 'harrisiva@gmail.com', 'Password': '11@f12', 
-        'street_num': '33', 'unit_num': '', 'street_name': 'Street', 
-        'city': 'Waterloo', 'province': 'Ontario', 'postal_code': '1N3Z', 
-        'country': 'CA', 'institue_num': '12', 'transit_num': '12', 
-        'account_num': '323', 'submit': 'Create'}
-        """
-
-        #if self.database.insert("INSERT INTO employee(emp_firstName,emp_lastName, emp_address, emp_phone, emp_username,emp_email, emp_password,emp_type,emp_hourlyWage,emp_salary,organization_id,department_id,bank_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", values): print("Created Employee!")
-
         return
+     
     def read_employees(self): # uses org_id and db handler to view all the employees in the current organization  
         return self.database.fetch(f'SELECT * FROM employee WHERE org_id={self.id};', output=True) 
+    
     def update_employee(self): # Update multi games
         return
     def delete_employee(self):
         return
     
+
+
+    def view_addressbook(self): 
+        return self.database.fetch("SELECT * FROM addressbook", output=True)
+
+    def get_address(self,id): 
+        # Given a ID, return the address in a dictionary
+        query = f'SELECT * FROM addressbook WHERE ad_id={id}'
+        values = self.database.fetch(query, output=True)[0]
+        values = {
+            "street_num":values[3],
+            "unit_num":values[4],
+            "street_name":values[5],
+            "city":values[6],
+            "province":values[7],
+            "postal_code":values[8],
+            "country":values[9]
+        }
+        return values
+
+
     def view_banks(self):
         return self.database.fetch(f'SELECT * FROM bank WHERE org_id={self.id};', output=True) 
 

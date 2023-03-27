@@ -81,6 +81,10 @@ def manage_bank():
 
     return render_template("organization/manage-bank.html", bank_info=ORGANIZATION.view_banks())
 
+@views.route("/manage-addressbook", methods=["GET", "POST"])
+def manage_addressbook():
+    return render_template("organization/manage-addressbook.html", addressbook=ORGANIZATION.view_addressbook())
+
 # TODO: Second phase of the project. Consists of the view 
 @views.route("/employee-dashboard")
 def employee():

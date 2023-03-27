@@ -1,0 +1,57 @@
+{% extends "manage-base.html" %}
+<!-- Add a CSRF token -->
+{% include 'partials/sidebar.html' %}
+{% block title %}Manage Addressbook{% endblock %}
+{% block body %}
+<h1>Manage Addressbook</h1>
+<br>
+
+<h2>Alter Addressbook (i.e., CUD from CRUD):</h2>
+<form action="/manage-addressbook" METHOD="POST">
+    <h3>General Information</h3>
+    <input type="text" placeholder="(Optional) Addressbook ID" name="ad_id">
+
+    <!-- Input field's for the address table -->
+    <h3>Address Information</h3>
+    <input type="text" placeholder="Street Number" name="street_num">
+    <input type="text" placeholder="(Optional) Unit Number" name="unit_num"><br>
+    <input type="text" placeholder="Street Name" name="street_name">
+    <input type="text" placeholder="City" name="city"><br>
+    <input type="text" placeholder="Province" name="province">
+    <input type="text" placeholder="Postal Code" name="postal_code">
+    <input type="text" placeholder="Country (e.x. CA)" name="country"><br>
+    
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
+</form>
+<br>
+
+<h2>View Addressbook:</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Street Num</th>
+            <th scope="col">Unit Num</th>
+            <th scope="col">Street Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Province</th>
+            <th scope="col">Postal Code</th>
+            <th scope="col">Country</th>
+        </tr>
+    </thead>
+    {% for address in addressbook %}
+    <tr>
+        <th scope="row">{{ address.2 }}</th>
+        <td>{{ address.3 }}</td>
+        <td>{{ address.4 }}</td>
+        <td>{{ address.5 }}</td>
+        <td>{{ address.6 }}</td>
+        <td>{{ address.7 }}</td>
+        <td>{{ address.8 }}</td>
+        <td>{{ address.9 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
