@@ -37,15 +37,14 @@ def manage_employees():
 
         # Convert response type, check if response passes basic error handling, add org_id to response
         response = dict(request.form)
-        if response["submit"] in ["Update", "Delete"] and response["user_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
-        if response["submit"] in ["Create"] and response["user_id"]!="": return render_template("home.html") # pop up or same as previous line
+        if response["submit"] in ["Update", "Delete"] and response["emp_id"]=="": return render_template("home.html") # pop up saying user_id is required for updating or deleting, can re-direct for now to same page with a small error html on top
+        if response["submit"] in ["Create"] and response["emp_id"]!="": return render_template("home.html") # pop up or same as previous line
         response["org_id"]=ORGANIZATION.id
 
         # Call the required organization function to handle the record
-        if response["submit"]=="Create": ORGANIZATION.create_employee(response)
-        if response["submit"]=="Update": ORGANIZATION.update_employee(response) 
-        if response["submit"]=="Delete": ORGANIZATION.view_employees(response)
-
+        if response["submit"]=="Create": ORGANIZATION.create_employee(deepcopy(response))
+        if response["submit"]=="Update": ORGANIZATION.update_employee(deepcopy(response))
+        if response["submit"]=="Delete": ORGANIZATION.remove_employee(deepcopy(response))
 
     return render_template("organization/manage-employees.html", employees=ORGANIZATION.view_employees())
 
@@ -86,6 +85,11 @@ def manage_addressbook():
 
 
     return render_template("organization/manage-addressbook.html", addressbook=ORGANIZATION.view_addressbook())
+
+@views.route("/manage-payroll", methods=["GETS","POST"])
+def manage_payroll():
+    return render_template("organization/manage-payroll.html", addressbook=ORGANIZATION.view_payroll())
+
 
 # TODO: Second phase of the project. Consists of the view 
 @views.route("/employee-dashboard")

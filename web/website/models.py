@@ -1,4 +1,4 @@
-import mysql.connector # Using MySQL Connector rather than SQLAlchemy
+import mysql.connector # Using MySQL Connector (and custom db wrapper) rather than SQLAlchemy
 from . import private, queries
 from copy import deepcopy
 # TODO: CRUD Functions Error handling (assume all values are correct for now, enforce later)
@@ -14,11 +14,6 @@ def clean(response:dict):
         if response[i]=="": copy.pop(i)
     return deepcopy(copy)
 
-# From the previous assignments code (author: harrisiva)
-# TODO: Custom format function on values to get them in the required dict format
-# can use other SQL commands to get the right col names and dict size
-
-# General Database Handler (custom mysql connector wrapper) 
 # TODO: Restructure to just take the stuff it needs from a dict instead of using a values list
 class database:
     def __init__(self): # Load from the private file (TODO: Switch to ENV variables)
@@ -70,36 +65,8 @@ class database:
         self.database.close()
         return
 
-# New Addressbook Handler
-class AddressBook():
-    def __init__(self, db:database):
-        self.database = db
-        return
-    def create_address(self):
-        # Uses the DB handlers insert function
-        return
-    def read_address(self,id): 
-        # Given a ID, return the address in a dictionary
-        query = f'SELECT * FROM addressbook WHERE ad_id={id}'
-        values = self.database.fetch(query, output=True)[0]
-        values = {
-            "street_num":values[3],
-            "unit_num":values[4],
-            "street_name":values[5],
-            "city":values[6],
-            "province":values[7],
-            "postal_code":values[8],
-            "country":values[9]
-        }
-        return values
-    def update_address(self,id):
-        return
-    def delete_address(self,id):
-        return
-
-# New Organization Handler
-class Organization(): # Used predominantly by the organization related views
-    def __init__(self, id=None): # Uses DB to load organization object's information
+class Organization(): 
+    def __init__(self, id=None): 
         
         # Has a database handler instance on its own which is passed to the addressbook (can maintain session use)
         self.database = database()       
@@ -120,34 +87,12 @@ class Organization(): # Used predominantly by the organization related views
         return
     
     # Organization CRUD
-    def read_organization(self): # TODO: Can also incldue sum of employees, tranasactional balance, and other summary type info
+    def read_organization(self):
         return {"reg":self.reg,"name":self.name,"balance":self.balance,"address":self.address,"desc":self.desc}
-    
-    def create_organization(self):
-        # overrrides self data (which would be null)
-        return
-    
-    def update_organization(self):
-        # Updates in DB and seld
-        return
-    
-    def delete_organization(self):
-        # Deletes the current organization object (ensures cascade condition is met)
-        return
-    
-    # Transaction CRUD
-    def create_transaction(self):
-        return
-    def read_transactions(self):
-        return
-    def update_transaction(self):
-        return
-    def delete_transaction(self):
-        return
-
+ 
     # Employee CRUD (incl. ) (filters using the current organization)
-    def create_employee(self, response:dict):
-        self.database.insert(queries.insert_into_address_7, 
+    def create_employee(self, response:dict): 
+        self.database.insert(queries.insert_into_employee_12, 
                              [response['org_id'],response['dep_id'],response['access'],
                               response['firstname'],response['lastname'],response['username'],
                               response['email'],response['phone'],response['pass'],
@@ -157,14 +102,18 @@ class Organization(): # Used predominantly by the organization related views
     def view_employees(self):
         return self.database.fetch(f'SELECT * FROM employee WHERE org_id={self.id};', output=True) 
     
-    def update_employee(self): 
+    def update_employee(self, response): 
+        response = clean(response)
+        sql_section,values = derive(response)
+        sql = f'UPDATE employee SET {sql_section} WHERE emp_id={response["emp_id"]} and org_id={self.id}'
+        self.database.insert(sql, values)
         return
 
-    def remove_employee(self):
+    def remove_employee(self, response):
+        sql = f'DELETE FROM employee WHERE emp_id={response["emp_id"]}'
+        self.database.delete(sql)
         return
     
-
-
     def view_addressbook(self): 
         return self.database.fetch("SELECT * FROM addressbook", output=True)
 
