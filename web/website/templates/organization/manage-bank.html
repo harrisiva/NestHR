@@ -1,0 +1,46 @@
+<!-- Add a CSRF token -->
+{% extends "manage-base.html" %}
+{% include 'partials/sidebar.html' %}
+{% block title %}Manage Bank{% endblock %}
+{% block body %}
+<h1>Manage Bank</h1>
+<br>
+
+<h2>Alter Bank Information (i.e., CUD from CRUD):</h2>
+
+<p>You can ignore the fileds that you do not require</p>
+<form action="/manage-bank" METHOD="POST">
+    <h3>General Information</h3>
+    <input type="text" placeholder="(Optional) Bank ID" name="bank_id">
+
+    <h3>Bank Information</h3>
+    <input type="text" placeholder="Institue Number" name="institute_num"><br>
+    <input type="text" placeholder="Transit Number" name="transit_num">
+    <input type="text" placeholder="Account Number" name="account_num"><br>
+
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
+</form>
+<br>
+
+<h2>View Employees:</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Institue Number</th>
+            <th scope="col">Transit Number</th>
+            <th scope="col">Account Number</th>
+        </tr>
+    </thead>
+    {% for info in bank_info %}
+    <tr>
+        <th>{{ info.3 }}</th>
+        <td>{{ info.4 }}</td>
+        <td>{{ info.5 }}</td>
+        <td>{{ info.6 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

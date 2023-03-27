@@ -1,11 +1,24 @@
 import mysql.connector # Using MySQL Connector rather than SQLAlchemy
-from . import private
+from . import private, queries
+from copy import deepcopy
+
+# Utility Function
+def derive(response:dict): 
+    return '=%s,'.join(response.keys())+'=%s', list(response.values())
+
+def clean(response:dict):
+    response.pop("submit")
+    copy = deepcopy(response)
+    for i in response:
+        if response[i]=="": copy.pop(i)
+    return deepcopy(copy)
 
 # From the previous assignments code (author: harrisiva)
 # TODO: Custom format function on values to get them in the required dict format
 # can use other SQL commands to get the right col names and dict size
 
 # General Database Handler (custom mysql connector wrapper) 
+# TODO: Restructure to just take the stuff it needs from a dict instead of using a values list
 class database:
     def __init__(self): # Load from the private file (TODO: Switch to ENV variables)
         self.host, self.username, self.name = private.HOST, 'admin', 'nesthr'
@@ -134,7 +147,54 @@ class Organization(): # Used predominantly by the organization related views
         return
 
     # Employee CRUD (incl. ) (filters using the current organization)
-    def create_employee(self):
+    def create_employee(self, response:dict):
+        # TODO: Error handling (assume all values are correct for now, enforce later)
+
+        # Insert the bank first
+        # Insert the Address next
+        # Get the bank and address ID (just values again)
+        # Insert into the employee table (use values just pulled)
+        """
+        INSERT INTO bank(org_id,institute_num,transit_num,account_num) 
+        VALUES (1,101,352,324553123);
+        """
+        #self.database.insert(queries.insert_into_bank_4, [response["org_id"],response["institute_num"],
+        #                                                  response["transit_num"],response["account_num"]])
+        #print("Insereted into bank")
+        """
+        INSERT INTO addressbook(street_num,unit_num,street_name,city,province,postal_code,country)
+        VALUES(12, 3, 'King Street', 'Waterloo', 'Ontario', 'N1Z3M', 'CA');
+        """
+        #self.database.insert(queries.insert_into_address_7, [response["street_num"],response["unit_num"],
+        #                                                     response["street_name"],response["city"],
+        #                                                     response["province"],response["postal_code"],
+        #                                                     response["country"]])
+        print("Insereted into address")
+        # Get the two last added id's from bank and addressbook (or grab it based on the parameteres?)
+        addressbook = self.database.fetch("SELECT * FROM addressbook", output=True)[:-1]
+        print("Fetched addressess")
+        print(addressbook)
+        print(type(addressbook))
+        bank = self.database.fetch("SELECT * FROM bank", output=True)[:-1]
+        print("Fetch bank")
+        print(type(bank))
+        print(bank)
+        """
+        INSERT INTO employee(org_id,dep_id,access,firstname,lastname,username,email,phone,pass,ad_id,bank_id,pay_id) 
+        VALUES (1,1,1,'Vasily','Lomachenko','vloma','vloma@pubonking.com',226124356,'a1#xf',1,1,1);
+        """
+        """
+        {'user_id': '', 'department_id': '1', 'firstname': 'Harri', 
+        'lastname': 'Siva', 'username': 'hsiva', 
+        'email': 'harrisiva@gmail.com', 'Password': '11@f12', 
+        'street_num': '33', 'unit_num': '', 'street_name': 'Street', 
+        'city': 'Waterloo', 'province': 'Ontario', 'postal_code': '1N3Z', 
+        'country': 'CA', 'institue_num': '12', 'transit_num': '12', 
+        'account_num': '323', 'submit': 'Create'}
+        """
+
+        #if self.database.insert("INSERT INTO employee(emp_firstName,emp_lastName, emp_address, emp_phone, emp_username,emp_email, emp_password,emp_type,emp_hourlyWage,emp_salary,organization_id,department_id,bank_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", values): print("Created Employee!")
+
         return
     def read_employees(self): # uses org_id and db handler to view all the employees in the current organization  
         return self.database.fetch(f'SELECT * FROM employee WHERE org_id={self.id};', output=True) 
@@ -143,12 +203,22 @@ class Organization(): # Used predominantly by the organization related views
     def delete_employee(self):
         return
     
-    # TODO:
-    # Department CRUD
-    # Project CRUD
+    def view_banks(self):
+        return self.database.fetch(f'SELECT * FROM bank WHERE org_id={self.id};', output=True) 
 
-    # Employee Performance Management
-    # Enter performance appraisal
+    def create_bank(self, response:dict):
+        self.database.insert(queries.insert_into_bank_4, [response["org_id"],response["institute_num"],
+                                                          response["transit_num"],response["account_num"]])
+        return
 
-    # Employee Payroll Managementent
-    # Make payment (all=False, id=None)
+    def remove_bank(self,response:dict):
+        sql = f'DELETE FROM bank WHERE bank_id={response["bank_id"]}'
+        self.database.delete(sql)
+        return
+
+    def update_bank(self,response:dict):
+        response = clean(response)
+        sql_section,values = derive(response)
+        sql = f'UPDATE bank SET {sql_section} WHERE bank_id={response["bank_id"]}'
+        self.database.insert(sql, values)
+        return

@@ -15,7 +15,7 @@
     For now, we just need to collect all the fields except for the automatically generated ones.
 -->
 <p>You can ignore the fileds that you do not require (e.x. providing just the user_id for delete, ignoring the user_id for create and update)</p>
-<form action="" METHOD="POST">
+<form action="/manage-employees" METHOD="POST">
     <!-- TODO: Modify the input types and the different variable names to match the database (note: not sure if this is a security risk since this portion of the code is locally present on users browsers unencrypted) -->
     
     <!-- Input field's for the employee table -->
@@ -45,17 +45,17 @@
 
     <!-- Input field's for the bank table -->
     <h3>Bank Information</h3>
-    <input type="text" placeholder="Institue Number" name="institue_num"><br>
+    <input type="text" placeholder="Institue Number" name="institute_num"><br>
     <input type="text" placeholder="Transit Number" name="transit_num">
     <input type="text" placeholder="Account Number" name="account_num"><br>
 
     <!-- Input field's for the payroll table -->
     <input type="text" placeholder="City" name="city"><br>
-    <input type="text" placeholder="City" name="city"><br>
+    <input type="text" placeholder="Country" name="country"><br>
 
-    <input type="submit" value="Create">
-    <input type="submit" value="Update">
-    <input type="submit" value="Delete">
+    <input type="submit" name="submit" value="Create">
+    <input type="submit" name="submit" value="Update">
+    <input type="submit" name="submit" value="Delete">
 </form>
 <br>
 
