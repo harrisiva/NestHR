@@ -7,8 +7,15 @@
 %} {% block body %}
 
 <!-- Contains the organization details and the special query results -->
-<h1>Name: {{ profile.name }}</h1>
-<h2>Desc: {{ profile.desc }}</h2>
-<h3>Address: {{ profile.address }}</h3>
+<div style="display: flex; flex-direction: column">
+	<h1 style="display: flex">Welcome, {{ profile.name }}!</h1>
+	<p style="font-size: large; font-weight: 500">{{ profile.desc }}</p>
+	<p style="font-size: large; font-weight: 500">
+		Address: {{ profile.address.street_num }} {{ profile.address.street_name }},
+		{{ profile.address.city }} {{ profile.address.province }}. {{
+		profile.address.postal_code }} {{ profile.address.country }}. Unit Number:
+		{{ profile.address.unit_num }}
+	</p>
+</div>
 
 {% endblock %}
